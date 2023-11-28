@@ -1,3 +1,10 @@
+using Guide.VariacaoAtivo.Application.Services;
+using Guide.VariacaoAtivo.Data.DataContext;
+using Guide.VariacaoAtivo.Data.Repositories;
+using Guide.VariacaoAtivo.Domain.Interfaces.Repositories;
+using Guide.VariacaoAtivo.Domain.Interfaces.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IAtivoRepository, AtivoRepository>();
+builder.Services.AddScoped<IAtivoService, AtivoService>();
+
 var app = builder.Build();
+
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
