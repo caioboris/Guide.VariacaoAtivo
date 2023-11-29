@@ -5,9 +5,6 @@ namespace Guide.VariacaoAtivo.Domain.Interfaces.Services
 {
     public interface IAtivoService
     {
-        Task<Result<Ativo>> GetAtivoById(Guid id);
-        Task<Result<Ativo>> GetAllAtivos();
-        Task<Result<Ativo>> PostAtivo(Ativo ativo);
-        Task<Result<Ativo>> GetHistoricalPricesFromYahoo(string ativo);
+        Task<Result<Ativo>> GetStockHistoricalPrices(string ativo);
     }
 }

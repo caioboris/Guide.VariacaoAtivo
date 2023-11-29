@@ -13,35 +13,22 @@ namespace Guide.VariacaoAtivo.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Ativo>> GetAllAtivos()
+        public  List<Ativo> GetAllAtivos()
         {
-            return _context.Set<Ativo>().ToList();
+            return _context.Ativos.OrderBy(x => x.Dia).ToList();
         }
 
-        public async Task<Ativo> GetAtivoById(Guid id)
+        public void PostAtivo(Ativo ativo)
         {
-            return await _context.Set<Ativo>().FindAsync(id);
+            _context.Ativos.Add(ativo);
+            _context.SaveChanges();
         }
 
-        public async void PostAtivo(Ativo ativo)
+        public void ClearTable()
         {
-            _context.Set<Ativo>().Add(ativo);
-            await _context.SaveChangesAsync();
-        }
-
-        public async void PutAtivo(Ativo ativo)
-        {
-            _context.Entry(ativo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-        public async void DeleteAtivo(Guid id)
-        {
-            var ativo = _context.Set<Ativo>().Find(id);
-            if(ativo != null)
-            {
-                _context.Set<Ativo>().Remove(ativo);
-                await _context.SaveChangesAsync();
-            }
+            var ativos = _context.Ativos.ToList();
+            _context.Ativos.RemoveRange(ativos);
+            _context.SaveChanges();
         }
     }
 }

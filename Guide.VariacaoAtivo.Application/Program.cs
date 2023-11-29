@@ -1,5 +1,5 @@
 using Guide.VariacaoAtivo.Application.Services;
-using Guide.VariacaoAtivo.Data.DataContext;
+using Guide.VariacaoAtivo.Context;
 using Guide.VariacaoAtivo.Data.Repositories;
 using Guide.VariacaoAtivo.Domain.Interfaces.Repositories;
 using Guide.VariacaoAtivo.Domain.Interfaces.Services;
@@ -17,12 +17,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAtivoRepository, AtivoRepository>();
 builder.Services.AddScoped<IAtivoService, AtivoService>();
 
-var app = builder.Build();
-
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .LogTo(Console.WriteLine, LogLevel.Information);
+    
 });
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

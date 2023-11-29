@@ -14,5 +14,7 @@ namespace Guide.VariacaoAtivo.Context
             base.OnModelCreating(builder);
         }
 
+        public DbSet<Ativo> Ativos { get; set; }
+
     }
 }

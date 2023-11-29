@@ -11,9 +11,6 @@ namespace Guide.VariacaoAtivo.Configuration
             builder.ToTable("TB_VARIACAO_ATIVOS");
             builder.HasKey(t => t.Id);
 
-            builder.Property(x => x.Dia)
-                .ValueGeneratedOnAdd();
-
             builder.Property(x => x.VariacaoPrimeiraData)
                 .HasColumnType("DECIMAL(8, 6)")
                 .IsRequired();
