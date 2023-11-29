@@ -12,5 +12,7 @@ namespace Guide.VariacaoAtivo.Domain.DTOs
         public string ErrorMessage { get; set; } = string.Empty;
         public List<T> Data { get; set; } = new List<T>();
 
+        public string StackTrace { get; set; } = string.Empty;
+
     }
 }

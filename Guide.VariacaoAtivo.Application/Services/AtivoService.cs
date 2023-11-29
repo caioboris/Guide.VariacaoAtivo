@@ -24,7 +24,7 @@ namespace Guide.VariacaoAtivo.Application.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://query2.finance.yahoo.com/v8/finance/chart/{Uri.EscapeDataString(ativo)}?interval=1d&range=1mo");
+                var response = await _httpClient.GetAsync($"https://query2.finance.yahoo.com/v8/finance/chart/{Uri.EscapeDataString(ativo)}?interval=1d&range=2mo");
                 var ativos = new List<Ativo>();
 
                 if(response.IsSuccessStatusCode)
@@ -38,7 +38,7 @@ namespace Guide.VariacaoAtivo.Application.Services
                         var timestamps = contentObject.Chart.Result.First().Timestamp;
                         var openPrice = contentObject.Chart.Result.First().Indicators.Quote.First().Open;
 
-                        for(int i = 0; i < timestamps.Length - 1; i++)
+                        for(int i = 0; i < 30; i++)
                         {
                             //Formula de calculo de variacao percentual ->  ((valor novo - valor antigo) / valor antigo) * 100
                             var price = openPrice[i];
@@ -63,12 +63,11 @@ namespace Guide.VariacaoAtivo.Application.Services
 
                 }
 
-                return new Result<Ativo> { Data = _ativoRepository.GetAllAtivos(), StatusCode = System.Net.HttpStatusCode.OK, Success = true };
+                return new Result<Ativo> { Data = _ativoRepository.GetAllAtivos(), StatusCode = System.Net.HttpStatusCode.NoContent, Success = true };
             }
             catch (Exception ex)
             {
-
-                throw;
+                return new Result<Ativo> { StatusCode = System.Net.HttpStatusCode.BadRequest, ErrorMessage = "Falha ao obter informações", StackTrace = ex.StackTrace };
             }
         }
     }
