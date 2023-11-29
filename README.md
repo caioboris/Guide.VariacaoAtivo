@@ -8,7 +8,7 @@ Para desenvolver esse projeto, utilizei uma arquitetura em 3 camadas:
   - Application: Camada de aplicação, que agrupa a controller, a service e demais atribuições que cabem a uma camada mais alta da aplicação como manipulação de exceções e tratamento de dados
 
 O Esquema do banco de dados foi definido no arquivo inicial de migração:
-
+```c#
   public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,7 @@ O Esquema do banco de dados foi definido no arquivo inicial de migração:
                 name: "TB_VARIACAO_ATIVOS");
         }
     }
-
+```
   Para acessar o banco, utilizei o campo "DefaultConnection" no appsettings.Development.json da camada de aplicação, é necessário para ao rodar os comandos de criação de migração e tabela do entityframework, adicionar esse arquivo para o projeto Data.
   Os comandos do ef core são: 
     dotnet ef migrations add NomeDaMigracao
