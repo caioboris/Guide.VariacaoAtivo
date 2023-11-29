@@ -8,11 +8,11 @@
 
         public DateTime Data { get; set; }
 
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
 
-        public double VariacaoDiaAnterior { get; set; }
+        public decimal VariacaoDiaAnterior { get; set; }
 
-        public double VariacaoPrimeiraData { get; set; }
+        public decimal VariacaoPrimeiraData { get; set; }
 
     }
 }
