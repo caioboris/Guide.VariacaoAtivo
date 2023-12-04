@@ -24,7 +24,7 @@ namespace Guide.VariacaoAtivo.Application.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://query2.finance.yahoo.com/v8/finance/chart/{Uri.EscapeDataString(ativo)}?interval=1d&range=2mo");
+                var response = await _httpClient.GetAsync($"https://query2.finance.yahoo.com/v8/finance/chart/{Uri.EscapeDataString(ativo)}?interval=1d&range=1mo");
                 var ativos = new List<Ativo>();
 
                 if(response.IsSuccessStatusCode)
@@ -38,7 +38,7 @@ namespace Guide.VariacaoAtivo.Application.Services
                         var timestamps = contentObject.Chart.Result.First().Timestamp;
                         var openPrice = contentObject.Chart.Result.First().Indicators.Quote.First().Open;
 
-                        for(int i = 0; i < 30; i++)
+                        for(int i = 0; i < openPrice.Length - 1; i++)
                         {
                             //Formula de calculo de variacao percentual ->  ((valor novo - valor antigo) / valor antigo) * 100
                             var price = openPrice[i];
